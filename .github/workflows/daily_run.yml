@@ -1,0 +1,35 @@
+name: Daily Script Run
+
+on:
+  schedule:
+    # 【关键】定时设置：每天北京时间早上9点运行（UTC时间1点）
+    - cron: '0 1 * * *'
+  # 可选：允许手动触发测试
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 拉取仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'  
+
+      # 3. 安装依赖（requests）
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. 运行脚本（传入Secrets里的token）
+      - name: Run Python script
+        env:
+          SCRIPT_TOKENS: ${{ secrets.SCRIPT_TOKENS }}  # 关联Secrets
+        run: python 胖乖10.30脚本 copy.py
