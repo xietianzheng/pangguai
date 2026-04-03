@@ -32,4 +32,4 @@ jobs:
       - name: Run Python script
         env:
           SCRIPT_TOKENS: ${{ secrets.SCRIPT_TOKENS }}  # 关联Secrets
-        run: python 胖乖10.30脚本 copy.py
+        run: python 胖乖10.30脚本.py
